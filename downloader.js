@@ -7,7 +7,7 @@ function isValidURL(string) {
 };
 
 function links_from_source(){
-    var out=(fs.readFileSync('source.txt','utf-8',function(err,data){
+    var out=(fs.readFileSync(additional_path+'source.txt','utf-8',function(err,data){
         if (err) return;
         return data
     })).split('\r\n')
@@ -33,20 +33,21 @@ var name;
 var series_number;
 
 // main
+var additional_path=""; // "path/to/file/"
 var data=links_from_source()
 for (const string of data) {
     //console.log(string)
     if (isValidURL(string)){
         //console.log(`URL: ${string}`)
         //console.log(`${name}-${series_number}.mp4`)
-        downloader(name,`${name}-${series_number}.mp4`,string)
+        downloader(additional_path+name,`${name}-${series_number}.mp4`,string)
         series_number++
     } else {
         //console.log(`Name: ${string}`)
         name=string
         series_number=1
-        if (!fs.existsSync(string)){
-            fs.mkdirSync(string);
+        if (!fs.existsSync(additional_path+string)){
+            fs.mkdirSync(additional_path+string);
         }
     }
 }
