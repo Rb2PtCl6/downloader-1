@@ -1,0 +1,8 @@
+muv-luv-alternative-total-eclipse //name of the files and forder
+1 https://hd.trn.su/720/2147399579.mp4?md5=Oqhpn2lzEHONTB9KGYCJMg&time=1678618645&d=1 // series number, link to series
+// 2 https://hd.trn.su/720/2147399581.mp4?md5=YeX53yqSLMQ0NJXNHxZi-A&time=1678620003&d=1 // comments mark "//" means than series will not be downloaded, series number, link to series
+3 https://hd.trn.su/720/2147399583.mp4?md5=ZuJcp0TjaHI4u6qq4llsMw&time=1678620013&d=1
+muv-luv-alternative
+1 https://hd.trn.su/720/2147419474.mp4?md5=PubFv940B6zuj9msLnjVQQ&time=1678620068&d=1
+2 https://hd.trn.su/720/2147419532.mp4?md5=I6Re5In1DRY96RnhfNJsQQ&time=1678620083&d=1
+// 3 https://hd.trn.su/720/2147419586.mp4?md5=D9QfVL7ffpvupj3iZWUQJA&time=1678620096&d=1
