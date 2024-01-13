@@ -42,13 +42,7 @@ function is_int(str) {
         return false;
     }
     else {
-        var integrer = Math.trunc(num);
-        if (num == integrer) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return num == Math.trunc(num);
     }
 }
 function deepFreeze(object) {
@@ -76,6 +70,10 @@ const validator = {
             return false;
         }
         else {
+            for (var i of splitted) {
+                if (i == "")
+                    return false;
+            }
             return (is_int(splitted[0]) && is_valid_url(splitted[1]));
         }
     }
@@ -97,11 +95,7 @@ function downloader(path, episode_name, url) {
     });
 }
 /*function dwn(path: string, episode_name: string, url: string) {
-    console.log()
-    console.log(`path: ${path}`)
-    console.log(`episode_name: ${episode_name}`)
-    console.log(`url: ${url}`)
-    console.log()
+    console.log(`\npath: ${path}\nepisode_name: ${episode_name}\nurl: ${url}\n`)
 }*/
 for (var i of get_data_from_source()) {
     if (!validator.check_for_comment(i)) {
@@ -120,13 +114,15 @@ for (var i of get_data_from_source()) {
         }
     }
 }
+for (var i of Object.keys(storage)) {
+    if (!Object.keys(storage[i]).length)
+        delete storage[i];
+}
 //console.log(storage)
 //fs.writeFileSync("out.json", JSON.stringify(storage))
 for (var series_name of Object.keys(storage)) {
     for (var episode_number of Object.keys(storage[series_name])) {
-        // dwn(path: string, series_name: string, url: string)
-        // downloader(additional_path+name,`${name}-${separated[0]}.mp4`,separated[1])
-        // dwn(`${additional_path}${series_name}`, `${series_name}-${episode_number}.mp4`, storage[series_name][episode_number])
+        //dwn(`${additional_path}${series_name}`, `${series_name}-${episode_number}.mp4`, storage[series_name][episode_number])
         downloader(`${additional_path}${series_name}`, `${series_name}-${episode_number}.mp4`, storage[series_name][episode_number]);
     }
 }

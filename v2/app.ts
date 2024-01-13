@@ -3,7 +3,6 @@ import * as path from 'node:path'
 import { spawn } from 'child_process'
 
 const additional_path = `${__dirname}/`
-
 const source2 = `${additional_path}source-2.txt`
 
 var storage: { [a: string]: any } = {}
@@ -24,28 +23,20 @@ function is_int(str: string): boolean {
     if (isNaN(num)) {
         return false
     } else {
-        var integrer = Math.trunc(num)
-        if (num == integrer) {
-            return true
-        } else {
-            return false
-        }
+        return num == Math.trunc(num)
     }
 }
 
 function deepFreeze(object: any) {
     // Retrieve the property names defined on object
     const propNames = Reflect.ownKeys(object);
-
     // Freeze properties before freezing self
     for (const name of propNames) {
         const value = object[name];
-
         if ((value && typeof value === "object") || typeof value === "function") {
             deepFreeze(value);
         }
     }
-
     return Object.freeze(object);
 }
 
@@ -61,6 +52,9 @@ const validator = {
         if (splitted.length != 2) {
             return false
         } else {
+            for (var i of splitted) {
+                if (i == "") return false
+            }
             return (is_int(splitted[0]) && is_valid_url(splitted[1]))
         }
     }
@@ -84,11 +78,7 @@ function downloader(path: string, episode_name: string, url: string) {
 }
 
 /*function dwn(path: string, episode_name: string, url: string) {
-    console.log()
-    console.log(`path: ${path}`)
-    console.log(`episode_name: ${episode_name}`)
-    console.log(`url: ${url}`)
-    console.log()
+    console.log(`\npath: ${path}\nepisode_name: ${episode_name}\nurl: ${url}\n`)
 }*/
 
 for (var i of get_data_from_source()) {
@@ -106,15 +96,16 @@ for (var i of get_data_from_source()) {
     }
 }
 
+for (var i of Object.keys(storage)) {
+    if (!Object.keys(storage[i]).length) delete storage[i]
+}
+
 //console.log(storage)
 //fs.writeFileSync("out.json", JSON.stringify(storage))
 
 for (var series_name of Object.keys(storage)){
     for (var episode_number of Object.keys(storage[series_name])) {
-        // dwn(path: string, series_name: string, url: string)
-        // downloader(additional_path+name,`${name}-${separated[0]}.mp4`,separated[1])
-        // dwn(`${additional_path}${series_name}`, `${series_name}-${episode_number}.mp4`, storage[series_name][episode_number])
-
+        //dwn(`${additional_path}${series_name}`, `${series_name}-${episode_number}.mp4`, storage[series_name][episode_number])
         downloader(`${additional_path}${series_name}`, `${series_name}-${episode_number}.mp4`, storage[series_name][episode_number])
     }
 }
